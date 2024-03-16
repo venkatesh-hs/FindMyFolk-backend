@@ -23,7 +23,11 @@ public class FolksController {
     public ResponseEntity<List<Folk>> getMyFolks(@RequestParam(value = "project") String project,
                                                  @RequestParam(value = "component", required = false) String component,
                                                  @RequestParam(value = "role", required = false) String role) {
-        List<Folk> folks = folksService.getMyFolks(project, component, role);
+        System.out.println(project + " " + component + " " + role);
+        List<Folk> folks = folksService.getMyFolks(
+                project.isBlank() ? null : project,
+                component.isBlank() ? null : component,
+                role.isBlank() ? null : role);
         HttpStatus status = HttpStatus.OK;
         if (folks == null || folks.isEmpty()) {
             status = HttpStatus.NOT_FOUND;
