@@ -20,8 +20,8 @@ public class FolksController {
 
     @GetMapping
     public ResponseEntity<List<Folk>> getMyFolks(@RequestParam(value = "project") String project,
-                                                @RequestParam(value = "component") String component,
-                                                @RequestParam(value = "role") String role) {
+                                                @RequestParam(value = "component", required = false) String component,
+                                                @RequestParam(value = "role", required = false) String role) {
         return ResponseEntity
                 .ok()
                 .body(folksService.getMyFolks(project, component, role));

@@ -1,0 +1,12 @@
+Execute this below procedure in your local DB to create a stored procedure.
+
+
+DELIMITER $$
+CREATE PROCEDURE GET_MY_FOLKS(IN project VARCHAR(50), IN component VARCHAR(50), IN role VARCHAR(50))
+BEGIN
+    select * from erp_assignment where project_name = project
+    and (CASE WHEN component is null THEN '1' ELSE domain = component END)
+    and (CASE WHEN role is null THEN '1' ELSE position = role END)
+    and status = 'active';
+END $$
+DELIMITER ;

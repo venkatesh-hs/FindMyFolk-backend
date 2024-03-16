@@ -1,11 +1,13 @@
 package com.findmyfolk.model;
 
-import lombok.AllArgsConstructor;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
 import lombok.Data;
 
 @Data
-@AllArgsConstructor
+@Entity(name = "erp_assignment")
 public class Folk {
+    @Id
     String name;
     String projectName;
     String projectCode;

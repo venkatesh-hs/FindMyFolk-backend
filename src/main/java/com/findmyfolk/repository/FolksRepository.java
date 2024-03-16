@@ -3,11 +3,14 @@ package com.findmyfolk.repository;
 import com.findmyfolk.model.Folk;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
-public interface FolksRepository extends JpaRepository<String, Folk> {
-    @Query(value = "select * from erp_assignment where project_name = ?1 and domain = ?2 and position = ?3 and status = 'active'",
+@Repository
+public interface FolksRepository extends JpaRepository<Folk, String> {
+    @Query(value = "CALL GET_MY_FOLKS(:project, :component, :role);",
             nativeQuery = true)
-    List<Folk> getFolks(String project, String component, String role);
+    List<Folk> getFolks(@Param("project") String project, @Param("component") String component, @Param("role") String role);
 }
