@@ -2,6 +2,7 @@ package com.findmyfolk.controller;
 
 import com.findmyfolk.model.Folk;
 import com.findmyfolk.service.FolksService;
+import com.findmyfolk.utility.FolkUtilities;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -24,10 +25,8 @@ public class FolksController {
                                                  @RequestParam(value = "component", required = false) String component,
                                                  @RequestParam(value = "role", required = false) String role) {
         System.out.println(project + " " + component + " " + role);
-        List<Folk> folks = folksService.getMyFolks(
-                project.isBlank() ? null : project,
-                component.isBlank() ? null : component,
-                role.isBlank() ? null : role);
+        List<Folk> folks = folksService.getMyFolks(FolkUtilities.emptyStringCheck(project),
+                FolkUtilities.emptyStringCheck(component), FolkUtilities.emptyStringCheck(role));
         HttpStatus status = HttpStatus.OK;
         if (folks == null || folks.isEmpty()) {
             status = HttpStatus.NOT_FOUND;
