@@ -21,10 +21,9 @@ public class FolksController {
     private final FolksService folksService;
 
     @GetMapping
-    public ResponseEntity<List<Folk>> getMyFolks(@RequestParam(value = "project") String project,
+    public ResponseEntity<List<Folk>> getMyFolks(@RequestParam(value = "project", required = false) String project,
                                                  @RequestParam(value = "component", required = false) String component,
                                                  @RequestParam(value = "role", required = false) String role) {
-        System.out.println(project + " " + component + " " + role);
         List<Folk> folks = folksService.getMyFolks(FolkUtilities.emptyStringCheck(project),
                 FolkUtilities.emptyStringCheck(component), FolkUtilities.emptyStringCheck(role));
         HttpStatus status = HttpStatus.OK;
